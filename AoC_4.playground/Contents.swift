@@ -4,6 +4,13 @@ let allRows = boardsRaw.split(separator: "\n")
 
 var boards = [[[String]]]()
 
+func print(board: [[String]]) {
+    for row in board {
+        print(row)
+    }
+}
+
+
 for j in 0..<allRows.count / 5 {
     var board = [[String]]()
     for i in 0...4 {
@@ -43,23 +50,51 @@ func checkWin() -> [[String]]? {
     return nil
 }
 
+var winnigBoards = [[[String]]]()
 
 for i in 0..<numbers.count {
     mark(number: numbers[i])
-    if let winnerBoard = checkWin() {
+    var winnerBoard = checkWin()
+    while winnerBoard != nil {
         var sum = 0
-        for row in winnerBoard {
+        for row in winnerBoard! {
             for value in row {
                 if let val = Int(value) {
                     sum += val
                 }
             }
         }
+        
+        
+        if let index = boards.firstIndex(of: winnerBoard!) {
+            boards.remove(at: index)
+        }
+        winnigBoards.append(winnerBoard!)
+        
+        print("\(sum) * \(numbers[i]) = \(sum * Int(numbers[i])!)")
+       // print("winning: \(winnigBoards.count) boards: \(boards.count)")
+        winnerBoard = checkWin()
+    }
     
-        print("\(sum) \(numbers[i]) \(sum * Int(numbers[i])!)")
-        break
+}
+
+
+if let winnerboard = winnigBoards.last {
+var sum = 0
+for row in winnerboard {
+    for value in row {
+        if let val = Int(value) {
+            sum += val
+        }
     }
 }
+    print(sum)
+}
+
+
+
+
+
 
 
 
