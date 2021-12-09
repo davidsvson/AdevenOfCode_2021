@@ -3,8 +3,8 @@ var inputArray = input.split(separator: ",").compactMap{ Int($0) }
 var buckets : [Int] = Array(repeating: 0, count: 9)
 
 for i in inputArray.indices {
-    inputArray[i] -= 1
-    buckets[inputArray[i]] += 1
+    let day1 = inputArray[i] - 1
+    buckets[day1] += 1
 }
 
 for _ in 1...255 {
@@ -16,10 +16,7 @@ for _ in 1...255 {
     buckets[6] += bucketZero
 }
 
-var count = 0
-for bucket in buckets {
-    count += bucket
-}
+var count = buckets.reduce(0, +)
 
 print(count)
 
